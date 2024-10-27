@@ -1,9 +1,15 @@
-// import { useEffect } from "react";
+// App.js
+import "react-native-gesture-handler";
+import React from "react";
 import { ActivityIndicator } from "react-native";
 import { useFonts } from "expo-font";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegistrationScreen";
+import HomeScreen from "./screens/HomeScreen";
 
-// import LoginScreen from "./screens/LoginScreen";
-import RegistrationScreen from "./screens/RegistrationScreen";
+const MainStack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -14,9 +20,16 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <ActivityIndicator size="large" />; // Показуй індикатор завантаження
+    return <ActivityIndicator size="large" />; // Показати індикатор завантаження
   }
 
-  // return <LoginScreen />;
-  return <RegistrationScreen />;
+  return (
+    <NavigationContainer>
+      <MainStack.Navigator>
+        <MainStack.Screen name="Registration" component={RegisterScreen} />
+        <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen name="Home" component={HomeScreen} />
+      </MainStack.Navigator>
+    </NavigationContainer>
+  );
 }

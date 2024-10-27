@@ -18,7 +18,7 @@ import Button from "../components/Button";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("screen");
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ navigation }: { navigation: any }) => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,28 +28,16 @@ const RegistrationScreen = () => {
   );
   const [isAvatarDefault, setIsAvatarDefault] = useState(true);
 
-  const handleLoginChange = (value: string) => {
-    setLogin(value);
-  };
-
-  const handleEmailChange = (value: string) => {
-    setEmail(value);
-  };
-
-  const handlePasswordChange = (value: string) => {
-    setPassword(value);
-  };
-
-  const showPassword = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
-
+  const handleLoginChange = (value: string) => setLogin(value);
+  const handleEmailChange = (value: string) => setEmail(value);
+  const handlePasswordChange = (value: string) => setPassword(value);
+  const showPassword = () => setIsPasswordVisible((prev) => !prev);
   const addAvatar = () => {
-    if (isAvatarDefault) {
-      setAvatar(require("../assets/images/avatar.jpg"));
-    } else {
-      setAvatar(require("../assets/images/default-avatar.png"));
-    }
+    setAvatar(
+      isAvatarDefault
+        ? require("../assets/images/avatar.jpg")
+        : require("../assets/images/default-avatar.png")
+    );
     setIsAvatarDefault((prev) => !prev);
   };
 
@@ -59,16 +47,17 @@ const RegistrationScreen = () => {
       return;
     }
     Alert.alert("Credentials", `${login} + ${email} + ${password}`);
+    navigation.navigate("Home");
   };
 
   const onSignUp = () => {
-    console.log("Sign up!");
+    navigation.navigate("Login");
   };
 
   const showButton = (
     <TouchableOpacity onPress={showPassword}>
       <Text style={[styles.baseText, styles.passwordButtonText]}>
-        {isPasswordVisible ? "Сховати" : "Показати"}
+        {isPasswordVisible ? "Показати" : "Сховати"}
       </Text>
     </TouchableOpacity>
   );
@@ -76,8 +65,6 @@ const RegistrationScreen = () => {
   const avatarButtonStyle = isAvatarDefault
     ? styles.addAvatarButton
     : styles.removeAvatarButton;
-
-  const avatarTextColor = isAvatarDefault ? colors.orange : colors.border_gray;
   const borderColor = isAvatarDefault ? colors.orange : colors.border_gray;
 
   return (
@@ -180,7 +167,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   formContainer: {
-    height: "60%",
+    height: "75%",
     width: SCREEN_WIDTH,
     backgroundColor: colors.white,
     borderTopRightRadius: 25,

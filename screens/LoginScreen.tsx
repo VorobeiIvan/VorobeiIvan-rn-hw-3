@@ -18,34 +18,29 @@ import Button from "../components/Button";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("screen");
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }: { navigation: any }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 
-  const handleEmailChange = (value: string) => {
-    setEmail(value);
-  };
-
-  const handlePasswordChange = (value: string) => {
-    setPassword(value);
-  };
-
-  const showPassword = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
+  const handleEmailChange = (value: string) => setEmail(value);
+  const handlePasswordChange = (value: string) => setPassword(value);
+  const showPassword = () => setIsPasswordVisible((prev) => !prev);
 
   const onLogin = () => {
     Alert.alert("Credentials", `${email} + ${password}`);
+    navigation.navigate("Home");
   };
 
   const onSignUp = () => {
-    console.log("Sign up!");
+    navigation.navigate("Registration");
   };
 
   const showButton = (
     <TouchableOpacity onPress={showPassword}>
-      <Text style={[styles.baseText, styles.passwordButtonText]}>Показати</Text>
+      <Text style={[styles.baseText, styles.passwordButtonText]}>
+        {isPasswordVisible ? "Показати" : "Сховати"}
+      </Text>
     </TouchableOpacity>
   );
 
@@ -53,7 +48,7 @@ const LoginScreen = () => {
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Image
           source={require("../assets/images/background.png")}
@@ -70,7 +65,6 @@ const LoginScreen = () => {
               placeholder="Адреса електронної пошти"
               onTextChange={handleEmailChange}
             />
-
             <Input
               value={password}
               placeholder="Пароль"
@@ -104,7 +98,6 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -129,7 +122,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: SCREEN_WIDTH,
-    height: "50%",
+    height: "60%",
     backgroundColor: colors.white,
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
