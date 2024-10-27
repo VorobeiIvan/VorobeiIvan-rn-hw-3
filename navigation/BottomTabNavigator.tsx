@@ -8,6 +8,7 @@ import Profile from "../icons/Profile";
 import HomeScreen from "../screens/HomeScreen";
 import Plus from "../icons/Plus";
 import ProfileScreen from "../screens/ProfileScreen";
+import PostsScreen from "../screens/PostsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,8 +24,8 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Posts"
+        component={PostsScreen}
         options={({ navigation }: { navigation: any }) => ({
           title: "Публікація",
           tabBarIcon: ({ focused }) => <Home />,
