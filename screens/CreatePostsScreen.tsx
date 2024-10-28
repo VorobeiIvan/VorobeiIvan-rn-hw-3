@@ -8,7 +8,7 @@ import {
 } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 
-export default function CameraScreen() {
+export default function CreatePostsScreen() {
   // const [facing, setFacing] = useState<CameraType>("back");
   // const [permission, requestPermission] = useCameraPermissions();
   // const [permissionResponse, requestLibraryPermission] =

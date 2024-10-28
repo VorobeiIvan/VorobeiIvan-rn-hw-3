@@ -1,3 +1,16 @@
+import React from "react";
+import { View, Text } from "react-native";
+
+const MapScreen = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text style={{ fontSize: 24 }}>Map Screen</Text>
+    </View>
+  );
+};
+
+export default MapScreen;
+
 // import React, { useEffect, useState } from "react";
 // import { View, StyleSheet } from "react-native";
 // import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";

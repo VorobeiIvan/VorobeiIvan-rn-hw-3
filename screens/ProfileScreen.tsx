@@ -61,10 +61,7 @@ const ProfileScreen = ({ navigation }: { navigation: any }) => {
             </TouchableOpacity>
           </View>
           <Text style={styles.title}>Natali Romanova</Text>
-
-          <View style={[styles.innerContainer, styles.inputContainer]}>
-            <PostsScreen />
-          </View>
+          <PostsScreen />
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -80,9 +77,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   innerContainer: {
+   
     gap: 16,
   },
   inputContainer: {
+    
     marginTop: 32,
   },
   buttonContainer: {
@@ -96,7 +95,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   formContainer: {
-    height: "90%",
+   
+    height: "85%",
     width: SCREEN_WIDTH,
     backgroundColor: colors.white,
     borderTopRightRadius: 25,

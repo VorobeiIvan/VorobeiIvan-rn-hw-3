@@ -1,47 +1,82 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationProp } from "@react-navigation/native";
 import PostsScreen from "./PostsScreen";
+import CreatePostsScreen from "./CreatePostsScreen";
+import ProfileScreen from "./ProfileScreen";
+import { Feather, Ionicons } from "@expo/vector-icons";
+import { colors } from "../styles/global";
 
-const HomeScreen = () => {
-  return (
-    <>
-      <PostsScreen />
-      <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={require("../assets/images/avatar.jpg")}
+const Tabs = createBottomTabNavigator();
+
+const HomeScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
+  const logOut = () => {
+    return (
+      <View style={styles.iconContainer}>
+        <Feather
+          name="log-out"
+          size={24}
+          color={colors.border_gray}
+          onPress={handleLogOut}
         />
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Natali Romanova</Text>
-          <Text style={styles.text}>email@example.com</Text>
-        </View>
       </View>
-    </>
+    );
+  };
+
+  const handleLogOut = () => {
+    navigation.navigate("Login");
+  };
+
+  return (
+    <Tabs.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          size = focused ? 32 : 24;
+
+          if (route.name === "Posts") {
+            iconName = focused ? "grid" : "grid-outline";
+          } else if (route.name === "CreatePosts") {
+            iconName = focused ? "add-circle" : "add-circle-outline";
+          } else if (route.name === "Profile") {
+            iconName = focused ? "person" : "person-outline";
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: colors.orange,
+        tabBarInactiveTintColor: colors.black_primary,
+        tabBarLabel: () => null,
+      })}
+    >
+      <Tabs.Screen
+        name="Posts"
+        component={PostsScreen}
+        options={{
+          title: "Публікації",
+          headerRight: logOut,
+        }}
+      />
+      <Tabs.Screen
+        name="CreatePosts"
+        component={CreatePostsScreen}
+        options={{
+          title: "Створити публікацію",
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
+    </Tabs.Navigator>
   );
 };
 
-export default HomeScreen;
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
-  image: {
-    height: 60,
-    width: 60,
-    borderRadius: 8,
-  },
-  textContainer: {
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
-  },
-  text: {
-    fontSize: 18,
-    color: "white",
+  iconContainer: {
+    paddingRight: 16,
   },
 });
+
+export default HomeScreen;
